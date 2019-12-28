@@ -61,14 +61,14 @@
         $(document).ready(function() {
         $('#begin').on('click',function(e){
             e.preventDefault();
-            console.log('begin is clicked');
+            // console.log('begin is clicked');
             $('#begin').hide();
 
         });
 
         $('#end').on('click', function(e) {
             e.preventDefault();
-            console.log('end is clicked');
+            // console.log('end is clicked');
             $('#begin').show();
             // $('#begin').show();
         });
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        <a href="">press</a>
+                        <a href="Transaction/index.php">press</a>
                     </div>
                 <br/>
                 </div>
