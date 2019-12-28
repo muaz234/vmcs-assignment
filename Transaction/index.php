@@ -154,7 +154,9 @@
     <body>
         <div class="container" style="display: flex; justify-content: center;">
             <div class="content">
-                <p class="title">vimto soft drinks dispenser</p>
+
+            <a href="javascript:history.back()" class="title"><span class="glyphicon glyphicon-search" style="display: inline-block" aria-hidden="true"></span>Back</a>
+            <p class="title">vimto soft drinks dispenser</p>
                 <div class="row" style="margin-top: 50px;">
                         <!-- first col -->
                         <!-- <div class="row"> -->
