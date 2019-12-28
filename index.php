@@ -4,8 +4,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Bootstrap CSS -->
+    <!-- <script   src="https://code.jquery.com/jquery-3.4.1.js"   integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="   crossorigin="anonymous"></script> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
         #simulator-panel {
@@ -14,6 +16,9 @@
             border: 2px solid black;
             width: 700px;
             height: 600px;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-bottom: 30px;
             background-color: #E6E6FA;
             
         }
@@ -46,12 +51,35 @@
             white-space: nowrap;
             border-radius: 40px 40px 40px 40px;
             margin-left: -20px;
-
+            text-align: center;
+        }
+        a{
+            color: #000000;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+        $('#begin').on('click',function(e){
+            e.preventDefault();
+            console.log('begin is clicked');
+            $('#begin').hide();
+
+        });
+
+        $('#end').on('click', function(e) {
+            e.preventDefault();
+            console.log('end is clicked');
+            $('#begin').show();
+            // $('#begin').show();
+        });
+
+        });
+        
+    </script>
+
     <title>VMCS</title>
   </head>
-  <body class="container">
+  <body class="container" style="display: flex; justify-content: center;">
       <div class="simulator-panel d-flex justify-content-center" id="simulator-panel">
           <div class="content">
               <h1 style="margin-top: 20px;">Simulator Control Panel</h1>
@@ -66,7 +94,7 @@
 
                     <div class="col-md-3">
                         <!-- <button type="btn" value="press" style="outline: none;" name="press" id="btn">press</button>  -->
-                        press
+                        <a id="begin" href="">press</a>
                     </div>
                 <br/>
                 </div>
@@ -77,7 +105,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                            press 
+                        <a id="end" href="">press</a>
                     </div>
                 <br/>
                 </div>
@@ -88,7 +116,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        press 
+                        <a href="">press</a>
                     </div>
                 <br/>
                 </div>
@@ -99,7 +127,7 @@
                     </div>
 
                     <div class="col-md-3"  >
-                        press 
+                        <a href="">press</a>
                     </div>
                 </div>
 
@@ -109,7 +137,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        <div style="margin: auto 0;">press</div> 
+                        <a href="" style="margin: auto 0;">press</div> 
                     </div>
                 <br/>
                 </div>
