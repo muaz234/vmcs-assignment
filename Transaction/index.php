@@ -18,7 +18,7 @@ if(isset($_POST['submit']))
         $total = $temp;
         // $temp = $total;
         print($total);
-        return $total;
+        return $total; //calculate total
         
     }
     
