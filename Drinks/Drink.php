@@ -16,6 +16,32 @@
         $this->quantity = $quantity;
         $this->created = $created;
     }
+
+    public function getId()
+    { 
+        return $this->id;
+     }
+    public function getName()
+    { 
+        return $this->name; 
+    }
+    public function getBrand()
+    { return $this->brand; 
+    }
+    public function getPrice()
+    {
+         return $this->price;
+     }
+    public function getQuantity()
+    { 
+        return $this->quantity; 
+    }
+    public function getCreated()
+    {
+         return $this->created;
+     }
+
+
  }
 
 
