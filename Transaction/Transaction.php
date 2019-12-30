@@ -20,6 +20,46 @@
         $this->completed = $completed;
         $this->created = $created;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getDrinkId()
+    {
+        return $this->drink_id;
+    }
+
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    public function getTotalPrice()
+    {
+        return $this->total_price;
+    }
+
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    public function getBalancePaid()
+    {
+        return $this->balance_paid;
+    }
+
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    public function getCreated()
+    {
+        return $this->created;
+    }
  }
 
 
