@@ -59,10 +59,20 @@
     </style>
     <script>
         $(document).ready(function() {
+            var customer_panel = $('#customer_panel').attr("href");
+            var maintainer_panel = $('#maintainer_panel').attr("href");
+            var simulator_panel = $('#simulator_panel').attr("href");
+
+            $("#customer_panel").removeAttr('href');
+            $('#maintainer_panel').removeAttr('href');
+            $("#simulator_panel").removeAttr('href');
         $('#begin').on('click',function(e){
             e.preventDefault();
             // console.log('begin is clicked');
             $('#begin').hide();
+            $('#customer_panel').attr("href", customer_panel);
+            $('#maintainer_panel').attr("href", maintainer_panel);
+            $('#simulator_panel').attr("href", simulator_panel);
 
         });
 
@@ -71,6 +81,7 @@
             // console.log('end is clicked');
             $('#begin').show();
             // $('#begin').show();
+           
         });
 
         });
@@ -116,7 +127,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        <a href="Transaction/index.php">press</a>
+                        <a href="Transaction/index.php" id="customer_panel">press</a>
                     </div>
                 <br/>
                 </div>
@@ -127,7 +138,7 @@
                     </div>
 
                     <div class="col-md-3"  >
-                        <a href="">press</a>
+                        <a href="" id="maintainer_panel">press</a>
                     </div>
                 </div>
 
@@ -137,7 +148,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        <a href="" style="margin: auto 0;">press</div> 
+                        <a href="" style="margin: auto 0;" id="simulator_panel">press</div> 
                     </div>
                 <br/>
                 </div>

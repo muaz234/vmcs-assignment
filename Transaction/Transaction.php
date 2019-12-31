@@ -26,9 +26,19 @@
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getDrinkId()
     {
         return $this->drink_id;
+    }
+
+    public function setDrinkId($drink_id)
+    {
+        $this->drink_id = $drink_id;
     }
 
     public function getQuantity()
@@ -36,9 +46,19 @@
         return $this->quantity;
     }
 
+    public function setQuantity($quantity)
+    {
+         $this->quantity = $quantity;
+    }
+
     public function getTotalPrice()
     {
         return $this->total_price;
+    }
+
+    public function setTotalPrice($total_price)
+    {
+        $this->total_price = $total_price;
     }
 
     public function getBalance()
@@ -46,9 +66,19 @@
         return $this->balance;
     }
 
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+    }
+
     public function getBalancePaid()
     {
         return $this->balance_paid;
+    }
+
+    public function setBalancePaid($balance_paid)
+    {
+        $this->balance_paid = $balance_paid;
     }
 
     public function getCompleted()
@@ -56,9 +86,19 @@
         return $this->completed;
     }
 
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+    }
+
     public function getCreated()
     {
         return $this->created;
+    }
+
+    public function setCreated($created)
+    {
+        $this->created = $created;
     }
  }
 

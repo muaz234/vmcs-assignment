@@ -1,29 +1,34 @@
 <?php
+include('../Drinks/Drink.php');
+include('./Transaction.php');
 if(isset($_POST['submit']))
 {
     // echo "i am clicked";
-    $coin_50 = (isset($_POST['50'])) ? 0.5 : null ;
-    $coin_20 = (isset($_POST['20'])) ? 0.2 : null;
-    $coin_10 = (isset($_POST['10'])) ? 0.1 : null;
+    $total = 0.00;
     $invalid = (isset($_POST['invalid'])) ? "Coins not valid" : "";
-    if(!is_null($coin_50)) { $coin = $coin_50; } 
-    if(!is_null($coin_20)) { $coin = $coin_20; } 
-    if(!is_null($coin_10)) { $coin = $coin_10; } 
-    if(isset($coin)) { total($coin, $temp);}
-    $temp = 0.0;
-    // print($coin);
-    function total($coin, $temp)
+    if(isset($_POST['fifty']))
     {
-        $temp += $coin;
-        $total = $temp;
-        // $temp = $total;
-        print($total);
-        return $total; 
-        
+        $coin = 0.5;
     }
-    
-    // $temp;
+    else if(isset($_POST['twenty']))
+    {
+        $coin = 0.2;
+    }
+    else if(isset($_POST['ten']))
+    {
+        $coin = 0.1;
+    }
+    else
+    {
+        $coin = 0;
+    }
+
    
+    function cumulative_amount($coin, $total)
+    {
+        $total += $coin;
+        return $total;
+    }
 }
 
 
@@ -222,7 +227,7 @@ if(isset($_POST['submit']))
                             </div>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <p class="coin_invalid_text">coins not valid</p>
+                            <input type="text" class="coin_invalid_text" style="width: 50px; margin-top: -10px; border: none;" value="<?php if(!empty($invalid) ) { echo $invalid; } else { echo "";} ?>"  readonly>
                         </div>   
                         <!-- </div>  -->
                         <!-- second col -->
@@ -230,7 +235,7 @@ if(isset($_POST['submit']))
                             <p class="insert_coin">total money inserted</p>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <input type="text" class="coin_invalid_text"  style="width: 50px; margin-top: -10px; border: none; " name="total_money" value="<?php  echo (isset($total)) ?  $total: ''; ?>" readonly>
+                            <input type="text" class="coin_invalid_text"  style="width: 50px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($total)){ echo $total ;}  else { echo ""; }  ?>" readonly>
                         </div>
 
                         <br>
@@ -364,16 +369,16 @@ if(isset($_POST['submit']))
                                                 <div class="modal-body">
                                                     <div class="content-modal" style="text-align: center;">
                                                         <br>
-                                                    <button type="button" class="btn btn-primary btn-lg" value="50" name="50">50</button>
+                                                    <button type="button" class="btn btn-primary btn-lg" value="50" name="fifty">50</button>
                                                             
                                                             <br>
                                                             <br>
 
-                                                    <button type="button" class="btn btn-dark btn-lg" value="20" name="20">20</button>
+                                                    <button type="button" class="btn btn-dark btn-lg" value="20" name="twenty">20</button>
                                                             
                                                     <br>
                                                             <br>
-                                                    <button type="button" class="btn btn-success btn-lg" value="10" name="10">10</button>
+                                                    <button type="button" class="btn btn-success btn-lg" value="10" name="ten">10</button>
                                                         
                                                     <br>
                                                         <br>
