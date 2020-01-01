@@ -1,38 +1,43 @@
 <?php
 include('../Drinks/Drink.php');
 include('./Transaction.php');
-if(isset($_POST['submit']))
+if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
 {
-    // echo "i am clicked";
-    $total = 0.00;
-    $invalid = (isset($_POST['invalid'])) ? "Coins not valid" : "";
-    if(isset($_POST['fifty']))
+    $total_coin = array();
+    $invalid = (isset($_GET['invalid'])) ? "Coins not valid" : "";
+    if(isset($_GET['btn_50']))
     {
-        $coin = 0.5;
+        $coin = 0.50;
     }
-    else if(isset($_POST['twenty']))
+    if(isset($_GET['btn_20']))
     {
-        $coin = 0.2;
+        $coin = 0.20;
     }
-    else if(isset($_POST['ten']))
+    if(isset($_GET['btn_10']))
     {
-        $coin = 0.1;
+        $coin = 0.10;
     }
-    else
+    // echo $coin;
+    function cumulative_amount($coin, $total_coin)
     {
-        $coin = 0;
-    }
-
-   
-    function cumulative_amount($coin, $total)
-    {
-        $total += $coin;
+        // global $total_coin;
+        $total=0;
+        if($coin!=0)
+        {
+            // $total += $coin;
+            $cumulative = array_push($total_coin, $coin);
+            for($i=0; $i<sizeof($total_coin); $i++)
+            {
+                $total = $total + $total_coin[$i];
+            }
         return $total;
+        }
     }
+    $result = cumulative_amount($coin, $total_coin);
+    var_dump($result);
+    
+
 }
-
-
-
 ?>
 <html>
     <head>  
@@ -56,8 +61,9 @@ if(isset($_POST['submit']))
         $("#coin_modal").click(function(e){
             console.log('clicked');
             $('#coinoptions').modal('show');
+            
         })
-
+        
        });
         </script>  
         <style>
@@ -208,7 +214,7 @@ if(isset($_POST['submit']))
         <div class="container" style="display: flex; justify-content: center;">
             <div class="content">
 
-            <a href="javascript:history.back()" class="title"><span class="glyphicon glyphicon-search" style="display: inline-block" aria-hidden="true"></span>Back</a>
+            <a href="../index.php" class="title"><span class="glyphicon glyphicon-search" style="display: inline-block" aria-hidden="true"></span>Back</a>
             <p class="title">vimto soft drinks dispenser</p>
                 <div class="row" style="margin-top: 50px;">
                         <!-- first col -->
@@ -227,7 +233,7 @@ if(isset($_POST['submit']))
                             </div>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <input type="text" class="coin_invalid_text" style="width: 50px; margin-top: -10px; border: none;" value="<?php if(!empty($invalid) ) { echo $invalid; } else { echo "";} ?>"  readonly>
+                            <input type="text" class="coin_invalid_text" style="width: 150px; margin-top: -10px; border: none;" value="<?php if(!empty($invalid) ) { echo $invalid; } else { echo "";} ?>"  readonly>
                         </div>   
                         <!-- </div>  -->
                         <!-- second col -->
@@ -235,7 +241,7 @@ if(isset($_POST['submit']))
                             <p class="insert_coin">total money inserted</p>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <input type="text" class="coin_invalid_text"  style="width: 50px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($total)){ echo $total ;}  else { echo ""; }  ?>" readonly>
+                            <input type="text" class="coin_invalid_text"  style="width: 150px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($result)) { echo "RM ".round($result, 2); } else { echo "RM 0.00"; } ?>" readonly>
                         </div>
 
                         <br>
@@ -365,30 +371,38 @@ if(isset($_POST['submit']))
                                                     <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form method="POST" action="index.php?submit">
+                                                <form method="GET" action="">
                                                 <div class="modal-body">
                                                     <div class="content-modal" style="text-align: center;">
                                                         <br>
-                                                    <button type="button" class="btn btn-primary btn-lg" value="50" name="fifty">50</button>
+                                                    <input type="submit" class="btn btn-primary btn-lg" name="btn_50" value="50">
+                                                    <!-- <input type="hidden" name="coin" id="coin"/> -->
+                                                <!-- </button> -->
                                                             
                                                             <br>
                                                             <br>
 
-                                                    <button type="button" class="btn btn-dark btn-lg" value="20" name="twenty">20</button>
+                                                    <input type="submit" class="btn btn-dark btn-lg" name="btn_20" value="20">
+                                                    <!-- <input type="hidden" name="coin" id="coin"/> -->
+                                                    <!-- </button> -->
                                                             
                                                     <br>
                                                             <br>
-                                                    <button type="button" class="btn btn-success btn-lg" value="10" name="ten">10</button>
+                                                    <input type="submit" class="btn btn-success btn-lg" name="btn_10" value="10">
+                                                    <!-- <input type="hidden" name="coin" id="coin" /> -->
+                                                    <!-- </button> -->
                                                         
                                                     <br>
                                                         <br>
-                                                        <button type="button" class="btn btn-danger btn-lg" value="invalid" name="invalid">invalid</button>
+                                                        <input type="submit" name="invalid" value="invalid" class="btn btn-danger btn-lg">
+                                                    <!-- <input type="hidden" name="invalid"  /> -->
+                                                        <!-- </button> -->
                                                         
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                                                    <input type="submit" name="submit" class="btn btn-primary">
+                                                    <!-- <input type="submit" name="submit" class="btn btn-primary"> -->
                                                 </div>
                                                 </form> 
 
