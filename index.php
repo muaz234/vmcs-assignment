@@ -148,7 +148,7 @@
                     </div>
 
                     <div class="col-md-3" >
-                        <a href="" style="margin: auto 0;" id="simulator_panel">press</div> 
+                        <a href="Simulator/index.php" style="margin: auto 0;" id="simulator_panel">press</div> 
                     </div>
                 <br/>
                 </div>
