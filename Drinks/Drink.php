@@ -75,6 +75,10 @@
      }
 
  }
-
+ $drink_1 = new Drink(1, "chocolate", "dutchlady", 0.70, 0, new DateTime());
+ $drink_2 = new Drink(2, "strawberry", "dutchlady", 0.90, 0, new DateTime());
+ $drink_3 = new Drink(3, "sarsi", "F&N", 1.10, 0, new DateTime());
+ $drink_4 = new Drink(4, "sprite", "F&N", 0.80, 0, new DateTime());
+ $drink_5 = new Drink(5, "coke", "F&N", 0.80, 0, new DateTime());
 
 ?>

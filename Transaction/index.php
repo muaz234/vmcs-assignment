@@ -1,9 +1,11 @@
 <?php
 include('../Drinks/Drink.php');
 include('./Transaction.php');
+
+
+
 if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
 {
-    $total_coin = array();
     $invalid = (isset($_GET['invalid'])) ? "Coins not valid" : "";
     if(isset($_GET['btn_50']))
     {
@@ -18,23 +20,24 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
         $coin = 0.10;
     }
     // echo $coin;
-    function cumulative_amount($coin, $total_coin)
-    {
+    // function cumulative_amount($coin, $total)
+    // {
         // global $total_coin;
-        $total=0;
+        
+        $total_coin = array();
         if($coin!=0)
         {
             // $total += $coin;
-            $cumulative = array_push($total_coin, $coin);
-            for($i=0; $i<sizeof($total_coin); $i++)
-            {
-                $total = $total + $total_coin[$i];
-            }
-        return $total;
+            $total = array_push($total_coin, $coin);
+            // for($i=0; $i<sizeof($total_coin); $i++)
+            // {
+            //     $total = $total + $total_coin[$i];
+            // }
+            //  return $total;
         }
-    }
-    $result = cumulative_amount($coin, $total_coin);
-    var_dump($result);
+    // }
+    // $result = cumulative_amount($);
+    var_dump($total);
     
 
 }
@@ -251,47 +254,47 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                                 <tr>
                                     <th> select drink below </th>
                                     <th> price </th>
-                                    <th> </th>
+                                    <th>  </th>
                                     <th> press to select </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr style="background-color: #E6E6FA">
-                                <th>brand 1</th>
-                                <th>80</th>
-                                <th style="text-transform: uppercase; text-decoration: underline;">not available</th>
+                                <th><?php echo $drink_1->name; ?></th>
+                                <th><?php echo "RM" .number_format($drink_1->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_1->quantity)) ? $drink_1->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA">
-                                <th>brand 1</th>
-                                <th>80</th>
-                                <th style="text-transform: uppercase; text-decoration: underline;">not available</th>
+                                <th><?php echo $drink_2->name; ?></th>
+                                <th><?php echo "RM" .number_format($drink_2->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_2->quantity)) ? $drink_2->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA">
-                                <th>brand 1</th>
-                                <th>80</th>
-                                <th style="text-transform: uppercase; text-decoration: underline;">not available</th>
+                                <th><?php echo $drink_3->name; ?></th>
+                                <th><?php echo "RM" .number_format($drink_3->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_3->quantity)) ? $drink_3->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA"> 
-                                <th>brand 1</th>
-                                <th>80</th>
-                                <th style="text-transform: uppercase; text-decoration: underline;">not available</th>
+                                <th><?php echo $drink_4->name; ?></th>
+                                <th><?php echo "RM" .number_format($drink_4->price, 2) ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_4->quantity)) ? $drink_4->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA">
-                                <th>brand 1</th>
-                                <th>80</th>
-                                <th style="text-transform: uppercase; text-decoration: underline;">not available</th>
+                                <th><?php echo $drink_5->name; ?></th>
+                                <th><?php echo "RM" .number_format($drink_5->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_5->quantity)) ? $drink_5->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
