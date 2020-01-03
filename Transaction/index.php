@@ -1,8 +1,9 @@
 <?php
 include('../Drinks/Drink.php');
 include('./Transaction.php');
-
-
+$total_coin = array();
+$total=0;
+$temp;
 
 if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
 {
@@ -19,25 +20,49 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
     {
         $coin = 0.10;
     }
-    // echo $coin;
-    // function cumulative_amount($coin, $total)
-    // {
-        // global $total_coin;
-        
-        $total_coin = array();
+    // $total_coin = array();
+    
+        function cumulative_amount($coin, $total_coin)
+        {
+        global $total;
+        global $total_coin;
+        global $temp;
         if($coin!=0)
         {
-            // $total += $coin;
-            $total = array_push($total_coin, $coin);
-            // for($i=0; $i<sizeof($total_coin); $i++)
-            // {
-            //     $total = $total + $total_coin[$i];
+            array_push($total_coin, $coin);
+                if(!empty($temp))
+                {
+                    for($i=0; $i<sizeof($total_coin); $i++)
+                    {
+                        $total = $temp + $total_coin[$i];
+                    }
+                }
+                else
+                {
+                    for($i=0; $i<sizeof($total_coin); $i++)
+                    {
+                        $total = $total + $total_coin[$i];
+                    }
+                    $temp = $total;
+                }
+                
             // }
-            //  return $total;
+                print_r($total_coin);
+                return $temp;
+                // echo $total;
         }
-    // }
-    // $result = cumulative_amount($);
-    var_dump($total);
+    }
+    if(empty($invalid))
+    {
+        // echo $total;
+        $result = cumulative_amount($coin, $total_coin);
+    }else
+    {
+        // if(isset($total)) { echo $total; } else { echo ""; }
+        $result = "";
+    }
+    
+    // var_dump($result);
     
 
 }
@@ -244,7 +269,7 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                             <p class="insert_coin">total money inserted</p>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <input type="text" class="coin_invalid_text"  style="width: 150px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($result)) { echo "RM ".round($result, 2); } else { echo "RM 0.00"; } ?>" readonly>
+                            <input type="text" class="coin_invalid_text"  style="width: 150px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($result)) { echo "RM ".number_format($result, 2); } else { echo ""; } ?>" readonly>
                         </div>
 
                         <br>
