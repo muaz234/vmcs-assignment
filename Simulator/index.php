@@ -303,9 +303,5 @@
 		 $('#unlock').addClass('btn-secondary')
 		 $('#unlock').removeClass('btn-success')
 	 })
-
-	 
-
-
 	</script>
 </html>

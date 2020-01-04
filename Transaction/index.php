@@ -1,8 +1,8 @@
 <?php
 include('../Drinks/Drink.php');
 include('./Transaction.php');
-$total_coin = array();
-$total=0;
+isset($total_coin) ? $total_coin : $total_coin = array();
+$total;
 $temp;
 
 if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
@@ -20,16 +20,16 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
     {
         $coin = 0.10;
     }
-    // $total_coin = array();
-    
+    if(isset($coin) && $coin!=0)
+    {
+        array_push($total_coin, $coin);
+    }
         function cumulative_amount($coin, $total_coin)
         {
-        global $total;
-        global $total_coin;
-        global $temp;
-        if($coin!=0)
-        {
-            array_push($total_coin, $coin);
+            global $total;
+            global $total_coin;
+            global $temp;
+            
                 if(!empty($temp))
                 {
                     for($i=0; $i<sizeof($total_coin); $i++)
@@ -46,11 +46,8 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                     $temp = $total;
                 }
                 
-            // }
-                print_r($total_coin);
+                // print_r($total_coin);
                 return $temp;
-                // echo $total;
-        }
     }
     if(empty($invalid))
     {
