@@ -1,6 +1,9 @@
 <?php
 include('../Drinks/Drink.php');
 include('./Transaction.php');
+include('../db_connect.php');
+$sql = "SELECT name, price, quantity from drinks where on_sale=1";
+$exec = mysqli_query($db, $sql);
 isset($total_coin) ? $total_coin : $total_coin = array();
 $total;
 $temp;
@@ -281,43 +284,47 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php  while($row=mysqli_fetch_assoc($exec))
+                                {
+                                    // var_dump($row);
+                                   ?> <tr style="background-color: #E6E6FA">
+                                    <th><?php echo $row['name']; ?></th>
+                                    <th><?php echo "RM " .number_format($row['price'], 2); ?></th>
+                                    <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($row['quantity'])) ? $drink_1->quantity : "Not Available"; ?></th>
+                                    <th><a class="purchase_btn"></a></th>
+    
+                                    </tr>
+                                    <?php }   ?>
+<!-- 
                                 <tr style="background-color: #E6E6FA">
-                                <th><?php echo $drink_1->name; ?></th>
-                                <th><?php echo "RM" .number_format($drink_1->price, 2); ?></th>
-                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_1->quantity)) ? $drink_1->quantity : "Not Available"; ?></th>
+                                <th><?php //echo $drink_2->name; ?></th>
+                                <th><?php //echo "RM" .number_format($drink_2->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php //echo (!empty($drink_2->quantity)) ? $drink_2->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA">
-                                <th><?php echo $drink_2->name; ?></th>
-                                <th><?php echo "RM" .number_format($drink_2->price, 2); ?></th>
-                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_2->quantity)) ? $drink_2->quantity : "Not Available"; ?></th>
-                                <th><a class="purchase_btn"></a></th>
-
-                                </tr>
-
-                                <tr style="background-color: #E6E6FA">
-                                <th><?php echo $drink_3->name; ?></th>
-                                <th><?php echo "RM" .number_format($drink_3->price, 2); ?></th>
-                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_3->quantity)) ? $drink_3->quantity : "Not Available"; ?></th>
+                                <th><?php //echo $drink_3->name; ?></th>
+                                <th><?php //echo "RM" .number_format($drink_3->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php //echo (!empty($drink_3->quantity)) ? $drink_3->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA"> 
-                                <th><?php echo $drink_4->name; ?></th>
-                                <th><?php echo "RM" .number_format($drink_4->price, 2) ?></th>
-                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_4->quantity)) ? $drink_4->quantity : "Not Available"; ?></th>
+                                <th><?php //echo $drink_4->name; ?></th>
+                                <th><?php //echo "RM" .number_format($drink_4->price, 2) ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php //echo (!empty($drink_4->quantity)) ? $drink_4->quantity : "Not Available"; ?></th>
                                 <th><a class="purchase_btn"></a></th>
 
                                 </tr>
 
                                 <tr style="background-color: #E6E6FA">
-                                <th><?php echo $drink_5->name; ?></th>
-                                <th><?php echo "RM" .number_format($drink_5->price, 2); ?></th>
-                                <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($drink_5->quantity)) ? $drink_5->quantity : "Not Available"; ?></th>
-                                <th><a class="purchase_btn"></a></th>
+                                <th><?php //echo $drink_5->name; ?></th>
+                                <th><?php //echo "RM" .number_format($drink_5->price, 2); ?></th>
+                                <th style="text-transform: uppercase; text-decoration: underline;"><?php //echo (!empty($drink_5->quantity)) ? $drink_5->quantity : "Not Available"; ?></th>
+                                <th><a class="purchase_btn"></a></th> -->
 
                                 </tr>
                             </tbody>
