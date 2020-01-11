@@ -9,10 +9,10 @@ $now = new DateTime();
     public $quantity;
     public $type;
     public $on_sale;
-    public $updated;
-    public $created;
+    public $updated_on;
+    public $created_on;
 
-    public function __construct($id, $name, $type, $brand, $price, $quantity, $on_sale, $created, $updated)
+    public function __construct($id, $name, $type, $brand, $price, $quantity, $on_sale, $created_on, $updated_on)
     {
         $this->id = $id;
         $this->name = $name;
@@ -21,8 +21,8 @@ $now = new DateTime();
         $this->type = $type;
         $this->on_sale = $on_sale;
         $this->quantity = $quantity;
-        $this->created = $created;
-        $this->updated = $updated;
+        $this->created_on = $created_on;
+        $this->updated_on = $updated_on;
     }
 
     public function getId()
@@ -74,22 +74,22 @@ $now = new DateTime();
     }
     public function getCreated()
     {
-         return $this->created;
+         return $this->created_on;
      }
 
-     public function setCreated($created)
+     public function setCreated($created_on)
      {
-         $this->created = $created;
+         $this->created_on = $created_on;
      }
 
      public function getUpdated()
      {
-         return $this->updated;
+         return $this->updated_on;
      }
 
-     public function setUpdated($updated)
+     public function setUpdated($updated_on)
      {
-         $this->updated = $updated;
+         $this->updated_on = $updated_on;
      }
 
  }
@@ -98,9 +98,9 @@ $now = new DateTime();
  $drink_3 = new Drink(3, "sarsi", "can_drink", "F&N", 1.10, 0, 1, $now->format('Y-m-d  H:i:s'), $now->format('Y-m-d  H:i:s'));
  $drink_4 = new Drink(4, "sprite", "can_drink", "F&N", 0.80, 0, 1, $now->format('Y-m-d  H:i:s'), $now->format('Y-m-d  H:i:s'));
  $drink_5 = new Drink(5, "coke", "can_drink", "F&N", 0.80, 0, 1, $now->format('Y-m-d  H:i:s'), $now->format('Y-m-d  H:i:s'));
-// $drink_1_serialize = json_encode($drink_1, true);
-// var_dump($drink_1_serialize);
-    $sql = "INSERT INTO drinks (id, name, type, price, brand, quantity, on_sale, created_on, updated_on) VALUES ('$drink_3->id', '$drink_3->name', '$drink_3->type', '$drink_3->price', '$drink_3->brand',  '$drink_3->quantity', '$drink_3->on_sale', '$drink_3->created', '$drink_3->updated')";
+    
+ $sql = "INSERT INTO drinks (". implode(',', array_keys(get_object_vars($drink_5))) .") VALUES ('" . implode("','", get_object_vars($drink_5)) . "')"; //using php implode to insert object into db
+    // $sql = "INSERT INTO drinks (id, name, type, price, brand, quantity, on_sale, created_on, updated_on) VALUES ('$drink_3->id', '$drink_3->name', '$drink_3->type', '$drink_3->price', '$drink_3->brand',  '$drink_3->quantity', '$drink_3->on_sale', '$drink_3->created', '$drink_3->updated')";
     $exec = mysqli_query($db, $sql) or die(mysqli_error($db));
     $stmt = mysqli_affected_rows($db);
 // mysqli_affected_rows($db);
