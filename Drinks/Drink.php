@@ -99,14 +99,14 @@ $now = new DateTime();
  $drink_4 = new Drink(4, "sprite", "can_drink", "F&N", 0.80, 0, 1, $now->format('Y-m-d  H:i:s'), $now->format('Y-m-d  H:i:s'));
  $drink_5 = new Drink(5, "coke", "can_drink", "F&N", 0.80, 0, 1, $now->format('Y-m-d  H:i:s'), $now->format('Y-m-d  H:i:s'));
     
- $sql = "INSERT INTO drinks (". implode(',', array_keys(get_object_vars($drink_5))) .") VALUES ('" . implode("','", get_object_vars($drink_5)) . "')"; //using php implode to insert object into db
+//  $sql = "INSERT INTO drinks (". implode(',', array_keys(get_object_vars($drink_5))) .") VALUES ('" . implode("','", get_object_vars($drink_5)) . "')"; //using php implode to insert object into db
     // $sql = "INSERT INTO drinks (id, name, type, price, brand, quantity, on_sale, created_on, updated_on) VALUES ('$drink_3->id', '$drink_3->name', '$drink_3->type', '$drink_3->price', '$drink_3->brand',  '$drink_3->quantity', '$drink_3->on_sale', '$drink_3->created', '$drink_3->updated')";
-    $exec = mysqli_query($db, $sql) or die(mysqli_error($db));
-    $stmt = mysqli_affected_rows($db);
+    // $exec = mysqli_query($db, $sql) or die(mysqli_error($db));
+    // $stmt = mysqli_affected_rows($db);
 // mysqli_affected_rows($db);
-if($stmt>0)
-{
-    echo "Rows created " .$stmt;
-}
+// if($stmt>0)
+// {
+//     echo "Rows created " .$stmt;
+// }
 
 ?>
