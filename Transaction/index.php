@@ -449,14 +449,18 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                                         }
                                         else
                                         {
-                                            echo "RM " .number_format(0, 2); 
+                                            echo "RM " .number_format(0.0, 2); 
 
                                         }
                                     }
-                                    if(isset($balance))
+                                    if(!empty($balance))
                                     {
                                         echo "RM ".number_format($balance, 2);
                                     }   
+                                    else
+                                    {
+                                        // do nothing
+                                    }
                                     // session_destroy(); 
                                     ?></p>
                                 </div>
@@ -478,7 +482,7 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                             <div class="col-lg-7">
                                 <div id="coin_message" style="height: 100px; max-height: 100px; max-width: 350px; width: 350px;">
                                     <div class="coin_return_selector" style="width: 250px; height: 70px; margin-top: -5px; text-align: center;">
-                                    <?php if(isset($drink_name) && isset($drink_brand)) {
+                                    <?php if(!empty($drink_name) && !empty($drink_brand)) {
                                         echo $drink_brand ." -- " .$drink_name;
                                         if(!empty($_SESSION['total']) || isset($_SESSION['total']))
                                         {
