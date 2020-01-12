@@ -138,7 +138,7 @@
                     </div>
 
                     <div class="col-md-3"  >
-                        <a href="" id="maintainer_panel">press</a>
+                        <a href="Maintainer/index.php" id="maintainer_panel">press</a>
                     </div>
                 </div>
 

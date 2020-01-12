@@ -1,3 +1,21 @@
+<?php
+include('../Drinks/Drink.php');
+include('./Transaction.php');
+include('../db_connect.php');
+session_start();
+$sql = "SELECT name, price, quantity from drinks where on_sale=1";
+$exec = mysqli_query($db, $sql);
+isset($total_coin) ? $total_coin : $total_coin = array();
+$total = 0;
+$temp;
+$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
+
+if($pageWasRefreshed ) {
+   $_SESSION['total'] = 0;
+} else {
+   //do nothing;
+}
+?>
 <html>
     <head>
 		<!-- Required meta tags -->
@@ -77,28 +95,6 @@
 		#message p {
 		padding: 10px 35px;
 		font-size: 18px;
-		}
-		
-		/* Add a green text color and a checkmark when the requirements are right */
-		.valid {
-		color: green;
-		}
-		
-		.valid:before {
-		position: relative;
-		left: -35px;
-		content: "✔";
-		}
-		
-		/* Add a red text color and an "x" when the requirements are wrong */
-		.invalid {
-		color: red;
-		}
-		
-		.invalid:before {
-		position: relative;
-		left: -35px;
-		content: "✖";
 		}
 		
         #insert_coin
@@ -251,9 +247,9 @@
         }
         .coin_return_selector
         {
-            border: 1px solid black;
+            /* border: 1px solid black; */
             padding: 0px 0px 0px 0px;
-            background-color: #E6E6FA;
+            /* background-color: #E6E6FA; */
             width: 100px;
             height: 30px;
             position: relative;
@@ -295,9 +291,14 @@
 		
 		$('#psw').on('keyup', function(){
 			var password = $('#psw').val();
-			if(password == 'Abc123')
+			if(password == 'AbC123')
 			{
 				$('#valid_bx').css('background-color', 'green'); 
+				$('#invalid_bx').css('background-color', 'grey');
+			}
+			else if(password == '')
+			{
+				$('#valid_bx').css('background-color', 'grey'); 
 				$('#invalid_bx').css('background-color', 'grey');
 			}
 			else
@@ -305,23 +306,12 @@
 				$('#valid_bx').css('background-color', 'grey'); 
 				$('#invalid_bx').css('background-color', 'red');
 			}
+		$('#coin_btn1').click(function(e){
+			e.preventDefault();
+			
+		})
 	   });
 	 
-
-		var myInput = document.getElementById("psw");
-		var letter = document.getElementById("letter");
-		var capital = document.getElementById("capital");
-		var number = document.getElementById("number");
-		var length = document.getElementById("length");
-
-		myInput.onfocus = function() {
-			document.getElementById("message").style.display = "block";
-		}
-		
-		// When the user clicks outside of the password field, hide the message box
-		myInput.onblur = function() {
-			document.getElementById("message").style.display = "none";
-		}
 		});
 		
     </script>
@@ -393,31 +383,28 @@
 					</div>
 					<div class="row" style="background-color:#E6E6FA">
 						<div class="col-md-3">
-							<div class="coin_btn">
-								<p class="display_type1">10C</p>
-							</div>
+							<input type="submit" name="request_10cdeno" value = "10C" class="coin_btn">
 						</div>
 						<div class="col-md-3">
-							<div class="coin_btn">
-								<p class="display_type1">20C</p>
-							</div>
+							<input type="submit" name="request_20cdeno" value = "20C" class="coin_btn">
 						</div>
 						<div class="col-md-3">
-							<div class="coin_btn">
-								<p class="display_type1">50C</p>
-							</div>
+							<input type="submit" name="request_50cdeno" value = "50C" class="coin_btn">
 						</div>
 						<div class="col-md-3">
-							<div class="coin_btn">
-								<p class="display_type1">RM1</p>
-							</div>
+							<input type="submit" name="request_rm1deno" value = "RM1" class="coin_btn">
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-7" style="background-color:#E6E6FA">
 							<p class="display_type1" style="margin:auto">total number of coins in selected denomination</p>
 						</div>
-						<div class="col-md-1" style="margin:auto">
+						<div class="col-lg-1"></div>
+						<div class="col-md-2" style="margin:middle">
+							<p class="coin_return_selector" style="text-align: center;"><?php 
+							if(isset($_GET['request_10cdeno'])){ 
+							"10 "; 
+							}   ?></p>
 						</div>
 					</div>
 				</div>
