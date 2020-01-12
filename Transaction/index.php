@@ -348,12 +348,20 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                                         while($row= mysqli_fetch_assoc($exec))
                                         {
                                             $drink_price = $row['price'];
-                                            $calcDrink = $_SESSION['total'] - $drink_price;
-                                            if($calcDrink>=0)
+                                            $drink_quantity = $row['quantity'];
+                                            if(isset($_SESSION['total']))
+                                            {
+                                                $calcDrink = $_SESSION['total'] - $drink_price;
+                                            }
+                                            else
+                                            {
+                                                $calcDrink = "";
+
+                                            }
+                                            if($calcDrink>=0 && $drink_quantity>0)
                                             {
                                                 $drink_name = $row['name'];
                                                 $drink_brand = $row['brand'];
-                                                $drink_quantity = $row['quantity'];
                                                 if($calcDrink > 0)
                                                 {
                                                     $balance = $calcDrink;
