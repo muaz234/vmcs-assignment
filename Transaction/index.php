@@ -2,15 +2,27 @@
 include('../Drinks/Drink.php');
 include('./Transaction.php');
 include('../db_connect.php');
+session_start();
 $sql = "SELECT name, price, quantity from drinks where on_sale=1";
 $exec = mysqli_query($db, $sql);
 isset($total_coin) ? $total_coin : $total_coin = array();
-$total;
+$total = 0;
 $temp;
+$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
 
-if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
+if($pageWasRefreshed ) {
+   $_SESSION['total'] = 0;
+} else {
+   //do nothing;
+}
+if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) || isset($_GET['invalid']))
 {
     $invalid = (isset($_GET['invalid'])) ? "Coins not valid" : "";
+
+    if(isset($_GET['btn_100']))
+    {
+        $coin = 1.00;
+    }
     if(isset($_GET['btn_50']))
     {
         $coin = 0.50;
@@ -23,44 +35,63 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
     {
         $coin = 0.10;
     }
-    if(isset($coin) && $coin!=0)
-    {
-        array_push($total_coin, $coin);
-    }
-        function cumulative_amount($coin, $total_coin)
-        {
-            global $total;
-            global $total_coin;
-            global $temp;
-            
-                if(!empty($temp))
-                {
-                    for($i=0; $i<sizeof($total_coin); $i++)
-                    {
-                        $total = $temp + $total_coin[$i];
-                    }
-                }
-                else
-                {
-                    for($i=0; $i<sizeof($total_coin); $i++)
-                    {
-                        $total = $total + $total_coin[$i];
-                    }
-                    $temp = $total;
-                }
-                
-                // print_r($total_coin);
-                return $temp;
-    }
+
     if(empty($invalid))
     {
-        // echo $total;
-        $result = cumulative_amount($coin, $total_coin);
-    }else
+
+        if(!empty($_SESSION['total']))
+        {
+            $total = $_SESSION['total'] + $coin;
+        }
+        else
+        {
+            $total += $coin;
+        }
+        $_SESSION['total'] = $total;
+    } 
+    else
     {
-        // if(isset($total)) { echo $total; } else { echo ""; }
-        $result = "";
+        $total = $_SESSION['total'];
     }
+    
+    // if(isset($coin) && $coin!=0)
+    // {
+    //     array_push($total_coin, $coin);
+    // }
+    //     function cumulative_amount($coin, $total_coin)
+    //     {
+    //         global $total;
+    //         global $total_coin;
+    //         global $temp;
+            
+    //             if(!empty($temp))
+    //             {
+    //                 for($i=0; $i<sizeof($total_coin); $i++)
+    //                 {
+    //                     $total = $temp + $total_coin[$i];
+    //                 }
+    //             }
+    //             else
+    //             {
+    //                 for($i=0; $i<sizeof($total_coin); $i++)
+    //                 {
+    //                     $total = $total + $total_coin[$i];
+    //                 }
+    //                 $temp = $total;
+    //             }
+                
+    //             // print_r($total_coin);
+    //             return $temp;
+    // }
+    // if(empty($invalid))
+    // {
+    //     // echo $total;
+    //     $result = cumulative_amount($coin, $total_coin);
+    // }else
+    // {
+    //     // if(isset($total)) { echo $total; } else { echo ""; }
+    //     $result = "";
+    // }
     
     // var_dump($result);
     
@@ -269,7 +300,7 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                             <p class="insert_coin">total money inserted</p>
                         </div>
                         <div class="col-md-3" id="coin_message">
-                            <input type="text" class="coin_invalid_text"  style="width: 150px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($result)) { echo "RM ".number_format($result, 2); } else { echo ""; } ?>" readonly>
+                            <input type="text" class="coin_invalid_text"  style="width: 150px; margin-top: -10px; border: none; " name="total_money" value="<?php if(!empty($total)) { echo "RM ".number_format($total, 2); } else { echo ""; } ?>" readonly>
                         </div>
 
                         <br>
@@ -291,7 +322,7 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                                     <th><?php echo $row['name']; ?></th>
                                     <th><?php echo "RM " .number_format($row['price'], 2); ?></th>
                                     <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($row['quantity'])) ? $drink_1->quantity : "Not Available"; ?></th>
-                                    <th><a class="purchase_btn"></a></th>
+                                    <th><input type="hidden" value="<?php $row['id']; ?>"><input type="submit" name="submit" value="" class="purchase_btn" /></th>
     
                                     </tr>
                                     <?php }   ?>
@@ -339,6 +370,7 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                                 <p class="coin_invalid_text">no change available</p></div>
                             <div class="col-lg-2"></div>
                 </div>
+                <form action="" method="GET">
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-10" id="complete_transactions">
@@ -348,7 +380,7 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                             </div>
                             <div class="col-lg-1">
                             <div class="coin_return" style="top: 10%;">
-                                        <p class="coin_return_selector" ></p>
+                                        <input type="submit" name="drop_transaction" value = "" class="coin_return_selector">
                                     </div>
                             </div>
                         </div>
@@ -365,13 +397,15 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                             <div class="col-lg-1"></div>
                             <div class="col-lg-1">
                                 <div class="coin_return">
-                                    <p class="coin_return_selector"></p>
+                                    <p class="coin_return_selector" style="text-align: center;"><?php if(isset($_GET['drop_transaction'])){ echo "RM " .number_format($_SESSION['total'], 2); }   ?></p>
                                 </div>
                             </div>
+                        
                         </div>
                         </div>
                     <div class="col-lg-1"></div>
                 </div>
+                </form>
 
                 <div class="row">
                     <div class="col-lg-1"></div>
@@ -407,6 +441,10 @@ if(isset($_GET['btn_50']) || isset($_GET['btn_20']) || isset($_GET['btn_10']) ||
                                                 <div class="modal-body">
                                                     <div class="content-modal" style="text-align: center;">
                                                         <br>
+                                                    <input type="submit" class="btn btn-warning btn-lg" name="btn_100" value="100">
+                                                        <br>
+                                                        <br>
+
                                                     <input type="submit" class="btn btn-primary btn-lg" name="btn_50" value="50">
                                                     <!-- <input type="hidden" name="coin" id="coin"/> -->
                                                 <!-- </button> -->
