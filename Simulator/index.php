@@ -1,4 +1,9 @@
 
+<?php
+include('../Drinks/Drink.php');
+include('./Transaction.php');
+
+?>
 <html>
 <head>  
      <!-- Required meta tags -->
@@ -181,28 +186,28 @@
 
 						<tr style="background-color: #E6E6FA">
 						
-						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 1</th>
+						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 2</th>
 						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
-						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 1</th>
+						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 3</th>
 						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
-						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 1</th>
+						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 4</th>
 						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
-						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 1</th>
+						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF CANS BRAND 5</th>
 						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
@@ -223,35 +228,35 @@
 						<tr style="background-color: #E6E6FA">
 						
 						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF 10c Coins</th>
-						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
+						<th><input value = "20" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
 						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF 20c Coins</th>
-						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
+						<th><input value = "20" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
 						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF 30c Coins</th>
-						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
+						<th><input value = "20" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
 						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF 50c Coins</th>
-						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
+						<th><input value = "20" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 
 						<tr style="background-color: #E6E6FA">
 						
 						<th style="width: 400px;  text-transform: uppercase;">NUMBER OF 1 RM</th>
-						<th><input value = "10" type="number" min="0" max="20"class="form-control"></th>
+						<th><input value = "20" type="number" min="0" max="20"class="form-control"></th>
 
 						</tr>
 					</tbody>   
@@ -285,7 +290,7 @@
 		console.log(typeof(inputValue))
 
 		if (inputValue > 20 || inputValue < 0) {
-			$(this).val(10)
+			$(this).val(20)
 			alert('Invalid Input')
 		}
 	 });
