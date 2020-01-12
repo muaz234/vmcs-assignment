@@ -3,7 +3,7 @@ include('../Drinks/Drink.php');
 include('./Transaction.php');
 include('../db_connect.php');
 session_start();
-$sql = "SELECT name, price, quantity from drinks where on_sale=1";
+$sql = "SELECT id, name, price, quantity from drinks where on_sale=1";
 $exec = mysqli_query($db, $sql);
 isset($total_coin) ? $total_coin : $total_coin = array();
 $total = 0;
@@ -321,11 +321,54 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                                    ?> <tr style="background-color: #E6E6FA">
                                     <th><?php echo $row['name']; ?></th>
                                     <th><?php echo "RM " .number_format($row['price'], 2); ?></th>
-                                    <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($row['quantity'])) ? $drink_1->quantity : "Not Available"; ?></th>
-                                    <th><input type="hidden" value="<?php $row['id']; ?>"><input type="submit" name="submit" value="" class="purchase_btn" /></th>
-    
+                                    <th style="text-transform: uppercase; text-decoration: underline;"><?php echo (!empty($row['quantity'])) ? "" : "Not Available"; ?></th>
+                                    <th>
+                                        <form action="" method="GET">
+                                        <input type="hidden" name="drink_id" value="<?php echo $row['id']; ?>">
+                                        <input type="submit" name="purchase_drink" value="" class="purchase_btn" style="cursor: pointer;" />
+                                        </form>
+                                    </th>
                                     </tr>
                                     <?php }   ?>
+
+
+                                    <?php 
+                                    
+                                    if(isset($_GET['purchase_drink']))
+                                    {
+
+                                        $drink_id = $_GET['drink_id'];
+                                        $drink_price = "";
+                                        $drink_name = "";
+                                        $drink_brand = "";
+                                        $drink_quantity = "";
+                                        $balance = "";
+                                        $sql = "SELECT name,brand,quantity,price from drinks where on_sale = 1 and id='$drink_id' ";
+                                        $exec = mysqli_query($db, $sql);
+                                        while($row= mysqli_fetch_assoc($exec))
+                                        {
+                                            $drink_price = $row['price'];
+                                            $calcDrink = $_SESSION['total'] - $drink_price;
+                                            if($calcDrink>=0)
+                                            {
+                                                $drink_name = $row['name'];
+                                                $drink_brand = $row['brand'];
+                                                $drink_quantity = $row['quantity'];
+                                                if($calcDrink > 0)
+                                                {
+                                                    $balance = $calcDrink;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                // do nothing
+                                            }
+                                        }
+                                       
+
+                                    }  
+
+                                    ?>
 <!-- 
                                 <tr style="background-color: #E6E6FA">
                                 <th><?php //echo $drink_2->name; ?></th>
@@ -380,8 +423,8 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                             </div>
                             <div class="col-lg-1">
                             <div class="coin_return" style="top: 10%;">
-                                        <input type="submit" name="drop_transaction" value = "" class="coin_return_selector">
-                                    </div>
+                                <input type="submit" name="drop_transaction" value = "" class="coin_return_selector">
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -397,7 +440,25 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                             <div class="col-lg-1"></div>
                             <div class="col-lg-1">
                                 <div class="coin_return">
-                                    <p class="coin_return_selector" style="text-align: center;"><?php if(isset($_GET['drop_transaction'])){ echo "RM " .number_format($_SESSION['total'], 2); }   ?></p>
+                                    <p class="coin_return_selector" style="text-align: center;"><?php 
+                                    if(isset($_GET['drop_transaction']))
+                                    { 
+                                        if(isset($_SESSION['total']))
+                                        {
+                                            echo "RM " .number_format($_SESSION['total'], 2); 
+                                        }
+                                        else
+                                        {
+                                            echo "RM " .number_format(0, 2); 
+
+                                        }
+                                    }
+                                    if(isset($balance))
+                                    {
+                                        echo "RM ".number_format($balance, 2);
+                                    }   
+                                    // session_destroy(); 
+                                    ?></p>
                                 </div>
                             </div>
                         
@@ -416,7 +477,17 @@ if(isset($_GET['btn_100']) || isset($_GET['btn_50']) || isset($_GET['btn_20']) |
                             </div>
                             <div class="col-lg-7">
                                 <div id="coin_message" style="height: 100px; max-height: 100px; max-width: 350px; width: 350px;">
-                                    <div class="coin_return_selector" style="width: 250px; height: 70px; margin-top: -5px;"></div>
+                                    <div class="coin_return_selector" style="width: 250px; height: 70px; margin-top: -5px; text-align: center;">
+                                    <?php if(isset($drink_name) && isset($drink_brand)) {
+                                        echo $drink_brand ." -- " .$drink_name;
+                                        if(!empty($_SESSION['total']) || isset($_SESSION['total']))
+                                        {
+                                            // session_destroy(); 
+                                        }
+                                    } 
+                                   
+                                    ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
