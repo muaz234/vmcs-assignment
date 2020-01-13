@@ -1,21 +1,3 @@
-<?php
-include('../Drinks/Drink.php');
-include('./Transaction.php');
-include('../db_connect.php');
-session_start();
-$sql = "SELECT name, price, quantity from drinks where on_sale=1";
-$exec = mysqli_query($db, $sql);
-isset($total_coin) ? $total_coin : $total_coin = array();
-$total = 0;
-$temp;
-$pageWasRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) && $_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0';
-
-if($pageWasRefreshed ) {
-   $_SESSION['total'] = 0;
-} else {
-   //do nothing;
-}
-?>
 <html>
     <head>
 		<!-- Required meta tags -->
@@ -306,10 +288,6 @@ if($pageWasRefreshed ) {
 				$('#valid_bx').css('background-color', 'grey'); 
 				$('#invalid_bx').css('background-color', 'red');
 			}
-		$('#coin_btn1').click(function(e){
-			e.preventDefault();
-			
-		})
 	   });
 	 
 		});
@@ -403,7 +381,7 @@ if($pageWasRefreshed ) {
 						<div class="col-md-2" style="margin:middle">
 							<p class="coin_return_selector" style="text-align: center;"><?php 
 							if(isset($_GET['request_10cdeno'])){ 
-							"10 "; 
+							return "10 "; 
 							}   ?></p>
 						</div>
 					</div>
@@ -416,29 +394,19 @@ if($pageWasRefreshed ) {
 					</div>
 					<div class="row" style="background-color:#E6E6FA">
 						<div class="col-md-2">
-							<div class="coin_btn" id="coin_btn">
-								<p class="display_type1">Brand 1</p>
-							</div>
+							<input type="submit" name="request_br1deno" value = "Brand 1" class="coin_btn">
 						</div>
 						<div class="col-md-2">
-							<div class="coin_btn">
-								<p class="display_type1">Brand 2</p>
-							</div>
+							<input type="submit" name="request_br2deno" value = "Brand 2" class="coin_btn">
 						</div>
 						<div class="col-md-2">
-							<div class="coin_btn">
-								<p class="display_type1">Brand 3</p>
-							</div>
+							<input type="submit" name="request_br3deno" value = "Brand 3" class="coin_btn">
 						</div>
 						<div class="col-md-2">
-							<div class="coin_btn">
-								<p class="display_type1">Brand 4</p>
-							</div>
+							<input type="submit" name="request_br4deno" value = "Brand 4" class="coin_btn">
 						</div>
 						<div class="col-md-2">
-							<div class="coin_btn">
-								<p class="display_type1">Brand 5</p>
-							</div>
+							<input type="submit" name="request_br5deno" value = "Brand 5" class="coin_btn">
 						</div>
 					</div>
 					<div class="row" style="border : 1px black">
@@ -459,6 +427,7 @@ if($pageWasRefreshed ) {
 							<p class="display_type1" style="margin:15px"><b>type new drink can price here</b></p>
 						</div>
 						<div class="col-md-1" style="margin:auto" style="border: 1px solid black">
+							<input type ="value" name="new_price" value="" style="margin:auto">
 						</div>
 					</div>
 				</div>
@@ -503,6 +472,7 @@ if($pageWasRefreshed ) {
 							<p class="display_type1" style="margin:15px"><b>press here when finish</b></p>
 						</div>
 						<div class="col-md-1" style="margin:auto" style="border: 1px solid black">
+							<input ="submit" a href="javascript:history.back()" class="coin_btn" >
 						</div>
 					</div>
 				</div>
